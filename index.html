@@ -34,7 +34,7 @@
           <a class="button button-green" href="#donate">Donate food</a>
           <a class="button button-light" href="#available">See available food</a>
         </div>
-        <p class="demo-note"><strong>Beginner demo:</strong> This website uses only HTML and CSS. The forms below are examples and do not send or save information.</p>
+        <p class="demo-note"><strong>Beginner demo:</strong> This is a community demo. Donation and contact forms use the FoodShare API when it is configured.</p>
       </div>
       <img class="hero-image" src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&amp;fit=crop&amp;w=1100&amp;q=85" alt="A fresh bowl of vegetables and grains">
     </section>
@@ -43,23 +43,25 @@
       <div class="section-heading">
         <p class="small-title">SHARE WHAT YOU CAN</p>
         <h2 id="donate-title">Donate food</h2>
-        <p>Have extra food to share? This sample form shows the details a donor could provide.</p>
+        <p>Share extra food with your neighbors. Donor contact details are kept private from public listings.</p>
       </div>
-      <form class="form-card" aria-describedby="donation-note">
+      <form class="form-card" id="donation-form" aria-describedby="donation-note">
         <label for="food-name">Food name</label>
-        <input id="food-name" name="food-name" type="text" placeholder="For example, vegetable soup">
+        <input id="food-name" name="food-name" type="text" placeholder="For example, vegetable soup" maxlength="100" required>
 
         <label for="quantity">Quantity</label>
-        <input id="quantity" name="quantity" type="text" placeholder="For example, 4 portions">
+        <input id="quantity" name="quantity" type="text" placeholder="For example, 4 portions" maxlength="100" required>
 
         <label for="pickup-location">Pickup area</label>
-        <input id="pickup-location" name="pickup-location" type="text" placeholder="Neighborhood or nearby landmark">
+        <input id="pickup-location" name="pickup-location" type="text" placeholder="Neighborhood or nearby landmark" maxlength="180" required>
 
         <label for="donor-contact">Contact details</label>
-        <input id="donor-contact" name="donor-contact" type="text" placeholder="Email address or phone number">
+        <input id="donor-contact" name="donor-contact" type="text" placeholder="Email address or phone number" maxlength="180" required>
 
-        <p class="form-note" id="donation-note">This is a visual demo only. Please do not enter real contact details.</p>
-        <button class="button button-green" type="button" disabled>Demo form — not connected</button>
+        <label class="checkbox-label"><input id="safe-handling" name="safe-handling" type="checkbox" required> I confirm this food was handled appropriately and is suitable for pickup.</label>
+        <p class="form-note" id="donation-note">Your contact details will not appear in public listings. FoodShare does not independently verify food safety.</p>
+        <p class="status-message" id="donation-status" role="status" aria-live="polite"></p>
+        <button class="button button-green" type="submit">Share this food</button>
       </form>
     </section>
 
@@ -70,7 +72,7 @@
           <h2 id="available-title">Available food</h2>
           <p>Here are a few sample listings to show how shared food could appear.</p>
         </div>
-        <div class="food-grid">
+        <div class="food-grid" id="food-grid">
           <article class="food-card">
             <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Colorful bowl of fresh vegetable salad" loading="lazy">
             <div class="food-info">
@@ -102,7 +104,7 @@
             </div>
           </article>
         </div>
-        <p class="sample-note">These are sample listings for the website preview. They are not real offers of food.</p>
+        <p class="sample-note" id="listing-note" role="status" aria-live="polite">Sample listings are for preview only and are not real offers of food.</p>
       </div>
     </section>
 
@@ -114,7 +116,7 @@
         <p class="small-title">ABOUT FOODSHARE</p>
         <h2 id="about-title">Good food is better when it's shared.</h2>
         <p>FoodShare is a simple idea: connect people with extra food to people who can use it. Sharing with neighbors can help reduce food waste and build a more caring community.</p>
-        <p>This beginner website is a visual example. A real sharing service would need a secure backend to connect donors and recipients.</p>
+        <p>This learning project uses a small backend for demo submissions. It does not yet include verified accounts, donor dashboards, or food-safety review.</p>
         <a class="button button-green" href="#donate">Share some food</a>
       </div>
     </section>
@@ -124,20 +126,21 @@
         <div class="section-heading">
           <p class="small-title">LET'S CONNECT</p>
           <h2 id="contact-title">Contact us</h2>
-          <p>Have a question or an idea? Use this sample form layout to see what a contact page can look like.</p>
+          <p>Have a question or idea? Send a note to the FoodShare demo team.</p>
         </div>
-        <form class="form-card contact-form">
+        <form class="form-card contact-form" id="contact-form">
           <label for="your-name">Your name</label>
-          <input id="your-name" name="your-name" type="text" placeholder="Enter your name">
+          <input id="your-name" name="your-name" type="text" placeholder="Enter your name" maxlength="100" required>
 
           <label for="your-email">Email address</label>
-          <input id="your-email" name="your-email" type="email" placeholder="you@example.com">
+          <input id="your-email" name="your-email" type="email" placeholder="you@example.com" maxlength="254" required>
 
           <label for="your-message">Message</label>
-          <textarea id="your-message" name="your-message" rows="4" placeholder="Write your message"></textarea>
+          <textarea id="your-message" name="your-message" rows="4" maxlength="2000" placeholder="Write your message" required></textarea>
 
-          <p class="form-note">This is a visual demo only. The form does not send messages.</p>
-          <button class="button button-green" type="button" disabled>Demo form — not connected</button>
+          <p class="form-note">Messages are saved in the project database. They are not emailed automatically.</p>
+          <p class="status-message" id="contact-status" role="status" aria-live="polite"></p>
+          <button class="button button-green" type="submit">Send message</button>
         </form>
       </div>
     </section>
@@ -148,5 +151,9 @@
     <p>Share a little. Help a lot.</p>
     <p class="copyright">© FoodShare — a beginner-friendly community project</p>
   </footer>
+  <script src="config.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
+
+

@@ -1,0 +1,13 @@
+{
+  "name": "foodshare-api",
+  "private": true,
+  "version": "1.0.0",
+  "description": "FoodShare demo API for Render",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}
